@@ -4,33 +4,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
-@using(Html.BeginForm("Create", "Courses"))
+@using (Html.BeginForm("Create", "Courses"))
 {
+    <font color="#af0000">
+        <h1>Tạo khóa học</h1>
+    </font>
     @Html.AntiForgeryToken()
     <form>
         <div class="form-group">
-            @Html.LabelFor(m => m.Place)
+            <font color="#0019ff">
+                @Html.LabelFor(m => m.Place)
+            </font>
             @Html.TextBoxFor(m => m.Place, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Place)
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Date)
+            <font color="#0019ff">
+                @Html.LabelFor(m => m.Date)
+            </font>
             @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Date)
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Time)
+            <font color="#0019ff">
+                @Html.LabelFor(m => m.Time)
+            </font>
             @Html.TextBoxFor(m => m.Time, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Time)
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.Category)
-            @Html.DropDownListFor(m => m.Category,
-                new SelectList(Model.Categories, "Id" , "Name"), "",new { @class = "form-control" })
+            <font color="#0019ff">
+                @Html.LabelFor(m => m.Category)
+            </font>
+            @Html.DropDownListFor(m => m.Category, new SelectList(Model.Categories, "Id", "Name"), "", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Category)
         </div>
-        <button type="submit" value="Save" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" value="Save">Tạo khóa học</button>
+        <div class="form-group"></div>
     </form>
 }
 @section scripts
