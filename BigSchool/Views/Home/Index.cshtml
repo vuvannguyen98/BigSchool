@@ -2,13 +2,72 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<div class="row">
-    <ul>
-        @foreach(var course in Model)
-        {
-            <li>
-                @course.DateTime - @course.Lecturer.Name
-            </li>
+<style>
+    #lo {
+        text-align: center;
+    }
+
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #03EBF7;
+            padding: 8px;
         }
-    </ul>
+
+        #customers tr:nth-child(even) {
+            background-color: #FDFDFD;
+        }
+
+        #customers tr:hover {
+            background-color: #FAF89B;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #8400E3;
+            color: white;
+        }
+
+    #lolo {
+        background-color: #9A0CFF;
+    }
+</style>
+<br />
+<div style="text-align:center;">
+    <h1>
+        DANH SÁCH CÁC KHÓA HỌC
+    </h1>
 </div>
+<table id="customers">
+
+    <tr>
+        <th>Ngày</th>
+        <th>Tháng</th>
+        <th>Năm</th>
+        <th>Thời gian</th>
+        <th>Địa điểm</th>
+        <th>Loại</th>
+        <th>Tên giảng viên</th>
+        <th>Đăng kí</th>
+        <th>Theo dõi</th>
+    </tr>
+
+    @foreach (var course in Model)
+    {
+        <tr>
+            <td>@course.DateTime.ToString("dd")</td>
+            <td>@course.DateTime.ToString("MM")</td>
+            <td>@course.DateTime.ToString("yyyy")</td>
+            <td>@course.DateTime.ToString("HH:mm")</td>
+            <td>@course.Place</td>
+            <td>@course.Category.Name</td>
+            <td>@course.Lecturer.Name</td>
+            
+        </tr>
+    }
