@@ -56,8 +56,35 @@
             <td>@course.Category.Name</td>
             <td>@course.Lecturer.Name</td>
             <td><a href="@Url.Action("Edit","Courses",new {id =course.Id})">Edit</a></td>
+            <td><a href="#" class="js-cancel-course" data-course-id="@course.Id">Cancel</a></td>
             <td><a href="">Delete</a></td>
         </tr>
     }
 </table>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-cancel-course").click(function (e) {
+                e.preventDefault();
+                var link = $(e.target);
+                bootbox.confirm("Bạn có chắc Cancel không ??",
+                    function () {
+                        $.ajax({
+                            url: "/api/course/" + link.attr("data-course-id"),
+                            method: "DELETE"
+                        })
+                            .done(function () {
+                                link.parents("li").fadeOut(function () {
+                                    $(this).remove();
+                                });
+                            })
+                            .fail(function () {
+                                alert("Somthing failed!");
+                            });
+                    });
+            });
+        });
+    </script>
+}
 
