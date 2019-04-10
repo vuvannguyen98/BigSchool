@@ -1,12 +1,9 @@
-﻿@model BigSchool.ViewModels.CourseViewModel
+﻿@model IEnumerable<BigSchool.Models.Course>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Mine";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-    #lo {
-        text-align: center;
-    }
-
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -31,17 +28,10 @@
             padding-bottom: 12px;
             text-align: left;
             background-color: #8400E3;
-            color: white;
-        }
-
-    #lolo {
-        background-color: #9A0CFF;
-    }
 </style>
-<br />
 <div style="text-align:center;">
     <h1>
-        DANH SÁCH CÁC KHÓA HỌC ĐÃ THAM DỰ
+        DANH SÁCH ĐƯỢC TẠO BỞI GIẢNG VIÊN
     </h1>
 </div>
 <table id="customers">
@@ -55,7 +45,7 @@
         <th>Tên giảng viên</th>
     </tr>
 
-    @foreach (var course in Model.UpcommingCourses)
+    @foreach (var course in Model)
     {
         <tr>
             <td>@course.DateTime.ToString("dd")</td>
@@ -65,7 +55,9 @@
             <td>@course.Place</td>
             <td>@course.Category.Name</td>
             <td>@course.Lecturer.Name</td>
-
+            <td><a href="@Url.Action("Edit","Courses",new {id =course.Id})">Edit</a></td>
+            <td><a href="">Delete</a></td>
         </tr>
     }
 </table>
+
