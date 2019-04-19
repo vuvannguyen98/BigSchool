@@ -13,7 +13,8 @@ namespace BigSchool.ViewModels
         
         public IEnumerable<Course> UpcommingCourses { get; set; }
         public bool ShowAction { get; set; }
-
+        public IEnumerable<Following> Followings { get; set; }
+        public IEnumerable<Attendance> Attendances { get; set; }
         [Required(ErrorMessage = "Địa điểm -- không được để trống")]
         public string Place { get; set; }
 

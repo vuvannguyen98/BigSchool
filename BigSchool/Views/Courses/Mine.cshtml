@@ -47,18 +47,21 @@
 
     @foreach (var course in Model)
     {
-        <tr>
-            <td>@course.DateTime.ToString("dd")</td>
-            <td>@course.DateTime.ToString("MM")</td>
-            <td>@course.DateTime.ToString("yyyy")</td>
-            <td>@course.DateTime.ToString("HH:mm")</td>
-            <td>@course.Place</td>
-            <td>@course.Category.Name</td>
-            <td>@course.Lecturer.Name</td>
-            <td><a href="@Url.Action("Edit","Courses",new {id =course.Id})">Edit</a></td>
-            <td><a href="#" class="js-cancel-course" data-course-id="@course.Id">Cancel</a></td>
-            <td><a href="">Delete</a></td>
-        </tr>
+        if (course.IsCanceled == false)
+        {
+            <tr>
+                <td>@course.DateTime.ToString("dd")</td>
+                <td>@course.DateTime.ToString("MM")</td>
+                <td>@course.DateTime.ToString("yyyy")</td>
+                <td>@course.DateTime.ToString("HH:mm")</td>
+                <td>@course.Place</td>
+                <td>@course.Category.Name</td>
+                <td>@course.Lecturer.Name</td>
+                <td><a href="@Url.Action("Edit","Courses",new {id =course.Id})">Edit</a></td>
+                <td><a href="#" class="js-cancel-course" data-course-id="@course.Id">Cancel</a></td>
+                <td><a href="">Delete</a></td>
+            </tr>           }
+
     }
 </table>
 @section scripts
@@ -71,7 +74,7 @@
                 bootbox.confirm("Bạn có chắc Cancel không ??",
                     function () {
                         $.ajax({
-                            url: "/api/course/" + link.attr("data-course-id"),
+                            url: "/api/courses/" + link.attr("data-course-id"),
                             method: "DELETE"
                         })
                             .done(function () {

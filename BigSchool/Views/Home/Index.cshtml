@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Home Page";
 }
+@{
+    var att = Model.Attendances.ToList();
+    var fl = Model.Followings.ToList();
+    var course1 = Model.UpcommingCourses.ToList();
+}
 <style>
     #lo {
         text-align: center;
@@ -57,31 +62,61 @@
         <th>Theo dõi</th>
     </tr>
 
-    @foreach (var course in Model.UpcommingCourses)
+    @foreach (var course in course1)
     {
-        <tr>
-            <td>@course.DateTime.ToString("dd")</td>
-            <td>@course.DateTime.ToString("MM")</td>
-            <td>@course.DateTime.ToString("yyyy")</td>
-            <td>@course.DateTime.ToString("HH:mm")</td>
-            <td>@course.Place</td>
-            <td>@course.Category.Name</td>
-            <td>@course.Lecturer.Name</td>
-            <td>
-                @if (Model.ShowAction)
-                {
-                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-                }
-            </td>
-            <td>
-                @if (Model.ShowAction)
-                {
-                    <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
-                }
+        if (course.IsCanceled == false)
+        {
+            <tr>
+                <td>@course.DateTime.ToString("dd")</td>
+                <td>@course.DateTime.ToString("MM")</td>
+                <td>@course.DateTime.ToString("yyyy")</td>
+                <td>@course.DateTime.ToString("HH:mm")</td>
+                <td>@course.Place</td>
+                <td>@course.Category.Name</td>
+                <td>@course.Lecturer.Name</td>
+                <td>
+                    @if (Model.ShowAction)
+                    {
+                        var x = 0;
+                        foreach (var ff in att)
+                        {
+                            if (ff.CourseId == course.Id)
+                            {
+                                x = x + 1;
+                                <button data-course-id="@course.Id" class="btn btn-success btn-sm js-toggle-attendance">Going</button>
+                            }
+                        }
+                        if (x == 0)
+                        {
+                            <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                        }
 
-            </td>
+                    }
+                </td>
+                <td>
+                    @if (Model.ShowAction)
+                    {
+                        var x = 0;
+                        foreach (var atta in fl)
+                        {
+                            if (atta.FolloweeId == course.LecturerId)
+                            {
+                                x = x + 1;
+                                <button class="btn btn-success btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
+                            }
+                        }
+                        if (x == 0)
+                        {
+                            <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
+                        }
 
-        </tr>
+                    }
+
+                </td>
+
+            </tr>
+        }
+
     }
 </table>
 @section scripts
@@ -116,7 +151,7 @@
                             alert("Something failed!");
                         });
                 }
-               
+
             });
             $(".js-toggle-follow").click(function (e) {
                 var button = $(e.target);
